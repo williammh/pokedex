@@ -1,0 +1,114 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js">
+                asp-fallback-src="~/lib/jquery/dist/jquery.js"
+                asp-fallback-test="window.jQuery">
+</script>
+<script>
+    $(document).ready(function(){
+        function runajaxsearch(input)
+        {
+            $.post("/ajaxsearch", {
+                pokemonname: input
+            },
+            function(response){
+                //http://bulbapedia.bulbagarden.net/wiki/File:353Shuppet.png
+                //http://pokeapi.co/media/img/700.png
+                $("#sprite").html("<img src='" + response.sprites.front_default + "'>");
+                $("#name").html(capitalize(response.name));
+                if(response["types"].length == 1)
+                {
+                     $("#primary").html(capitalize(response["types"][0]["type"]["name"]));
+                     $("#secondary").text("None");
+                }
+                else if(response["types"].length > 1)
+                {
+                    $("#primary").html(capitalize(response["types"][1]["type"]["name"]));
+                    $("#secondary").html(capitalize(response["types"][0]["type"]["name"]));
+                }
+                $("#height").html(response.height / 10);
+                $("#weight").html(response.weight / 10);
+                $("#pokedex").html(response.id);
+                $("#moreinfo").html("<a href='http://bulbapedia.bulbagarden.net/wiki/" +  response.name + "_(Pok%C3%A9mon)' target='_blank'><button class='button-primary'>More Info</button></a>");
+            }, "json")
+        }
+        function capitalize(word)
+        {
+            var returnedword = word[0].toUpperCase();
+            for(var i = 1; i < word.length; i++)
+            {
+                returnedword = returnedword + word[i];
+            }
+            return returnedword;
+        }
+        $("#name").html(capitalize($("#name").html()));
+        $("#primary").html(capitalize($("#primary").html()));
+        if(@ViewBag.Pokemon["types"].Count > 1)
+        {
+            $("#secondary").html(capitalize($("#secondary").html()));
+        }
+        $("#height").html($("#height").html()/10);
+        $("#weight").html($("#weight").html()/10);
+        $("#ajaxsearch").click(function(){
+            runajaxsearch($("#ajaxname").val());
+        });
+        $("#ajaxname").keydown(function(event){
+            if(event.which == 13)
+            {
+                runajaxsearch($("#ajaxname").val());
+            }
+        });
+        $("#ajaxprev").click(function(){
+            runajaxsearch(parseInt($("#pokedex").text()) - 1);
+        });
+        $("#ajaxnext").click(function(){
+            runajaxsearch(parseInt($("#pokedex").text()) + 1);
+        });
+        $(document).keydown(function(event){
+            if(event.which == 37)
+            {
+                runajaxsearch(parseInt($("#pokedex").text()) - 1);
+            }
+            else if(event.which == 39)
+            {
+                runajaxsearch(parseInt($("#pokedex").text()) + 1);
+            }
+        });
+    });
+</script>
+<div style="text-align: center;">
+<div id="sprite"><img src="@ViewBag.Pokemon["sprites"]["front_default"]"></div>
+<h1 id="name">@ViewBag.Pokemon["name"]</h1>
+@{
+    if(@ViewBag.Pokemon["types"].Count == 1)
+    {
+        <p>Primary Type: <span id="primary">@ViewBag.Pokemon["types"][0]["type"]["name"]</span></p>
+        <p>Secondary Type: <span id="secondary">None</span></p>
+    }
+    else if(@ViewBag.Pokemon["types"].Count > 1)
+    {
+        <p>Primary Type: <span id="primary">@ViewBag.Pokemon["types"][1]["type"]["name"]</span></p>
+        <p>Secondary Type: <span id="secondary">@ViewBag.Pokemon["types"][0]["type"]["name"]</span></p>
+    }
+}
+<p>Height: <span id="height">@ViewBag.Pokemon["height"]</span> m</p>
+<p>Weight: <span id="weight">@ViewBag.Pokemon["weight"]</span> kg</p>
+<p>National Pokedex Number: <span id="pokedex">@ViewBag.Pokemon["id"]</span></p>
+<div id="moreinfo">
+    <a href='http://bulbapedia.bulbagarden.net/wiki/@ViewBag.Pokemon["name"]_(Pok%C3%A9mon)' target="_blank">
+        <button class="button-primary">More Info</button>
+    </a>
+</div>
+<!--<a href="/pokemon/@ViewBag.Previous"><button><</button></a>
+<a href="/pokemon/@ViewBag.Next"><button>></button></a>
+<br>-->
+<button id="ajaxprev"><<</button>
+<button id="ajaxnext">>></button>
+<br>
+<!--<form action="search" method="post" style="margin-bottom: 10px;">
+    <input type="text" name="pokemonname" style="margin-bottom: 0px;">
+    <input type="submit" value="Search" style="margin-bottom: 0px;">
+</form>-->
+<input type="text" id="ajaxname"> <button id="ajaxsearch">AJAX Search</button>
+</div>
