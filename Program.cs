@@ -11,6 +11,7 @@ namespace pokeinfo
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
+                .UseIISIntegration() // Azure deployment
                 .Build();
 
             host.Run();

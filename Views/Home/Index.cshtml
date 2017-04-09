@@ -13,8 +13,6 @@
                 pokemonname: input
             },
             function(response){
-                //http://bulbapedia.bulbagarden.net/wiki/File:353Shuppet.png
-                //http://pokeapi.co/media/img/700.png
                 $("#sprite").html("<img src='" + response.sprites.front_default + "'>");
                 $("#name").html(capitalize(response.name));
                 if(response["types"].length == 1)
@@ -103,12 +101,12 @@
 <!--<a href="/pokemon/@ViewBag.Previous"><button><</button></a>
 <a href="/pokemon/@ViewBag.Next"><button>></button></a>
 <br>-->
-<button id="ajaxprev"><<</button>
-<button id="ajaxnext">>></button>
+<button id="ajaxprev" class="button-primary"><</button>
+<button id="ajaxnext" class="button-primary">></button>
 <br>
 <!--<form action="search" method="post" style="margin-bottom: 10px;">
     <input type="text" name="pokemonname" style="margin-bottom: 0px;">
     <input type="submit" value="Search" style="margin-bottom: 0px;">
 </form>-->
-<input type="text" id="ajaxname"> <button id="ajaxsearch">AJAX Search</button>
+<input type="text" id="ajaxname"> <button id="ajaxsearch" class="button-primary">Search</button>
 </div>

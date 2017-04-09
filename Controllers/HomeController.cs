@@ -53,7 +53,6 @@ namespace playground.Controllers
                     PokeInfo = ApiResponse;
                 }
             ).Wait();
-            Console.WriteLine("pokemon name is " + PokeInfo["name"]);
             return Json(PokeInfo);
         }
     }
