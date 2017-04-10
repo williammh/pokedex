@@ -1,0 +1,29 @@
+#container {
+    text-align: center;
+}
+#random {
+    height: 36px;
+    width: 74px;
+    background-color: #33c3f0;
+    border: 1px solid #33c3f0;
+    border-radius: 5px;
+    display: inline-block;
+    vertical-align: top;
+}
+#random:hover {
+    background-color: #1eaedb;
+    border: 1px solid #1eaedb;
+    cursor: pointer;
+}
+#random:active {
+    background-color: #1eaedb;
+    border: 1px solid #1eaedb;
+}
+#button-primary {
+    vertical-align: top;
+}
+#dice {
+    height: 36px;
+    width: 36px;
+    vertical-align: top;
+}
