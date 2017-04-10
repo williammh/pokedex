@@ -1,9 +1,6 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-<!--<head>
-    <link rel="stylesheet" type="text/css" href="site.css"/>
-</head>-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js">
                 asp-fallback-src="~/lib/jquery/dist/jquery.js"
                 asp-fallback-test="window.jQuery">
@@ -107,17 +104,17 @@
     <p>National Pokedex Number: <span id="pokedex">@ViewBag.Pokemon["id"]</span></p>
     <div id="moreinfo">
         <a href='http://bulbapedia.bulbagarden.net/wiki/@ViewBag.Pokemon["name"]_(Pok%C3%A9mon)' target="_blank">
-            <button class="button-primary">More Info</button>
+            <button class="button">More Info</button>
         </a>
     </div>
     <!--<a href="/pokemon/@ViewBag.Previous"><button><</button></a>
     <a href="/pokemon/@ViewBag.Next"><button>></button></a>
     <br>-->
-    <button id="ajaxfirst" class="button-primary"><<</button>
-    <button id="ajaxprev" class="button-primary"><</button>
+    <button id="ajaxfirst" class="button"><<</button>
+    <button id="ajaxprev" class="button"><</button>
     <div id="random"><img id="dice" src="http://www.clipartlord.com/wp-content/uploads/2013/12/dice6.png" alt="Random"></div>
-    <button id="ajaxnext" class="button-primary">></button>
-    <button id="ajaxlast" class="button-primary">>></button>
+    <button id="ajaxnext" class="button">></button>
+    <button id="ajaxlast" class="button">>></button>
     <br>
     <!--<form action="search" method="post" style="margin-bottom: 10px;">
         <input type="text" name="pokemonname" style="margin-bottom: 0px;">
