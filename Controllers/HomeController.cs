@@ -46,6 +46,11 @@ namespace playground.Controllers
         [Route("ajaxsearch")]
         public JsonResult AJAXSearch(string pokemonname)
         {
+            if(pokemonname == "random")
+            {
+                Random randomgenerator = new Random();
+                pokemonname = randomgenerator.Next(1,722).ToString();
+            }
             pokemonname = pokemonname.ToLower();
             var PokeInfo = new Dictionary<string, object>();
             WebRequest.GetPokemonNameDataAsync(pokemonname, ApiResponse =>
